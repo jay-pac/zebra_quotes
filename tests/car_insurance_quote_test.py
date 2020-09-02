@@ -4,6 +4,7 @@ from pages.start_page import StartPage
 from pages.start_details_page import StartDetailsPage
 from pages.vehicle_select_page import VehicleSelectPage
 from pages.vehicle_details_page import VehicleDetailsPage
+from pages.driver_details_page import DriverDetailsPage
 import pytest
 
 
@@ -21,6 +22,7 @@ class TestCarQuotes():
         sdp = StartDetailsPage(self.driver)
         vsp = VehicleSelectPage(self.driver)
         vdp = VehicleDetailsPage(self.driver)
+        ddp = DriverDetailsPage(self.driver)
 
         # Select Insurance Page - Select Auto or Home Insurance
         sip.enter_zipcode()
@@ -64,6 +66,20 @@ class TestCarQuotes():
         vdp.click_save_button()
         paid_full = vdp.verify_paid_in_full()
         assert paid_full == "Own - paid in full"
+
+        # Driver Details
+        ddp.click_gender()
+        ddp.click_martial_status()
+        ddp.click_credit_score()
+
+        # # Just not working!!! - unable to interact with elements regardless of wait. Ran out of time to debug :(
+        # ddp.click_eduction()
+        # ddp.click_years()
+        # ddp.enter_provider()
+        # ddp.click_accidents()
+        # ddp.enter_email()
+        # ddp.click_driver_option()
+        # ddp.click_show_quotes_btn()
 
     def teardown(self):
         self.driver.quit()
