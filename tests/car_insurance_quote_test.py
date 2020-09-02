@@ -2,6 +2,7 @@ from selenium import webdriver
 from pages.select_insurance_page import SelectInsurancePage
 from pages.start_page import StartPage
 from pages.start_details_page import StartDetailsPage
+from pages.vehicle_select_page import VehicleSelectPage
 import time
 import pytest
 
@@ -18,6 +19,7 @@ class TestCarQuotes():
         sip = SelectInsurancePage(self.driver)
         sp = StartPage(self.driver)
         sdp = StartDetailsPage(self.driver)
+        vsp = VehicleSelectPage(self.driver)
 
         # Select Insurance Page - Select Auto or Home Insurance
         sip.enter_zipcode()
@@ -43,6 +45,16 @@ class TestCarQuotes():
         assert name == "JRJohn Rambo"
 
         sdp.click_continue_button()
+
+        # Vehicle Selection - Select year, make, modal, trim
+        vsp.select_vehicle_year()
+        discount_car = vsp.verify_newcar_discount()
+        assert discount_car == "New Car"
+
+        vsp.select_vehicle_make()
+        vsp.select_vehicle_model()
+        vsp.select_vehicle_trim()
+        vsp.click_save_button()
 
     def teardown(self):
         self.driver.quit()
