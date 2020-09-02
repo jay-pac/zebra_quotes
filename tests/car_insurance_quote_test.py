@@ -3,7 +3,7 @@ from pages.select_insurance_page import SelectInsurancePage
 from pages.start_page import StartPage
 from pages.start_details_page import StartDetailsPage
 from pages.vehicle_select_page import VehicleSelectPage
-import time
+from pages.vehicle_details_page import VehicleDetailsPage
 import pytest
 
 
@@ -20,6 +20,7 @@ class TestCarQuotes():
         sp = StartPage(self.driver)
         sdp = StartDetailsPage(self.driver)
         vsp = VehicleSelectPage(self.driver)
+        vdp = VehicleDetailsPage(self.driver)
 
         # Select Insurance Page - Select Auto or Home Insurance
         sip.enter_zipcode()
@@ -46,7 +47,7 @@ class TestCarQuotes():
 
         sdp.click_continue_button()
 
-        # Vehicle Selection - Select year, make, modal, trim
+        # Vehicle Selection Page - Select year, make, modal, trim
         vsp.select_vehicle_year()
         discount_car = vsp.verify_newcar_discount()
         assert discount_car == "New Car"
@@ -55,6 +56,14 @@ class TestCarQuotes():
         vsp.select_vehicle_model()
         vsp.select_vehicle_trim()
         vsp.click_save_button()
+
+        # Vehicle Details Page
+        vdp.click_own_option()
+        vdp.click_commute_option()
+        vdp.enter_miles()
+        vdp.click_save_button()
+        paid_full = vdp.verify_paid_in_full()
+        assert paid_full == "Own - paid in full"
 
     def teardown(self):
         self.driver.quit()
