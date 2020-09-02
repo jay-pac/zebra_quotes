@@ -22,7 +22,7 @@
 - Create more tests around error handling, and messaging.
 - Add explicit waits method in a base class / custom driver for all interactions
 
-# Getting Started with Selenium and PyTest 
+# How to run tests with Selenium and PyTest 
 1. Install Python 3.x
 https://www.python.org/downloads/  
 *Optionally, you can create a virtual env to isolate Python dependencies between projects*
